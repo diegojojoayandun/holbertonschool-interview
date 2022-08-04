@@ -4,6 +4,9 @@
 
 
 def joining(T, R):
+    """
+    function to concatenate true and rigth
+    """
     res = []
     for e in R:
         res += T[e]
@@ -11,6 +14,9 @@ def joining(T, R):
 
 
 def canUnlockAll(boxes):
+    """
+    main function
+    """
     index = 0
     total = list(set(boxes[0]) | {0})
     added = True
