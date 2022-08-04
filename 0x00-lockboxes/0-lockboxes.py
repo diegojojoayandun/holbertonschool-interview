@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+""" lockboxes """
 def join(T,R):
   res =[]
   for e in R:
