@@ -1,17 +1,31 @@
 #!/usr/bin/node
 
+// Require request which includes put() function
 const request = require('request');
+// To request, we need to concatenate the api with the endpoint
+const url = 'https://swapi-api.hbtn.io/api/films/' + process.argv[2];
 
-request('https://swapi-api.hbtn.io/api/films/' + process.argv[2], function (err, res, body) {
-  if (err) throw err;
-  const actors = JSON.parse(body).characters;
-  exactOrder(actors, 0);
+request(url, (error, response, values) => {
+  if (error) {
+    console.log(error);
+  } else {
+    // Store the results
+    const results = JSON.parse(values).characters;
+    showResults(results, 0);
+  }
 });
-const exactOrder = (actors, x) => {
-  if (x === actors.length) return;
-  request(actors[x], function (err, res, body) {
-    if (err) throw err;
-    console.log(JSON.parse(body).name);
-    exactOrder(actors, x + 1);
+
+function showResults (results, index) {
+  if (index === results.length) {
+    return;
+  }
+  request(results[index], async (error, response, values) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(JSON.parse(values).name);
+      index += 1;
+      showResults(results, index);
+    }
   });
-};
+}
